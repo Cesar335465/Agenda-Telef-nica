@@ -11,10 +11,14 @@ class ContactForm extends StatelessWidget {
     var _back = ContactFormBack(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Cadastro de contato'),
+        title: Text(
+          'Cadastro de contato',
+          style: TextStyle(color: Colors.white),
+        ),
         actions: [
           IconButton(
             icon: Icon(Icons.save),
+            color: Colors.white,
             onPressed: () {
               //validate vai chamar as validações dos campos
               _formRef.currentState?.validate();
@@ -26,6 +30,13 @@ class ContactForm extends StatelessWidget {
             },
           ),
         ],
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          icon: Icon(Icons.arrow_back),
+          color: Colors.white,
+        ),
       ),
       body: Padding(
         padding: EdgeInsets.all(10),

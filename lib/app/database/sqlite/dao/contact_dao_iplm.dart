@@ -35,26 +35,20 @@ class ContactDaoIplm implements ContactDao {
   }
 
   @override
-  Future<void> save(Contact contact) async {
-    _db = await Conection.get();
+Future<void> save(Contact contact) async {
+  _db = await Conection.get();
 
-    // Verifica se o contato já existe
-    List<Map<String, dynamic>> existingContacts = await _db.query(
-      'contact',
-      where: 'nome = ? AND telefone = ? AND email = ?',
-      whereArgs: [contact.nome, contact.telefone, contact.email],
-    );
-
-    if (existingContacts.isEmpty) {
-      // Inserir novo contato se não existir
-      var sql = 'INSERT INTO contact(nome, telefone, email) VALUES(?,?,?)';
-      await _db.rawInsert(sql, [contact.nome, contact.telefone, contact.email]);
-    } else {
-      // Se já existir, atualiza os dados do contato existente
-      var sql =
-          'UPDATE contact SET nome = ?, telefone = ?, email = ? WHERE id = ?';
-      await _db.rawUpdate(
-          sql, [contact.nome, contact.telefone, contact.email, contact.id]);
-    }
+  if (contact.id == null) {
+    // Inserir novo contato
+    var sql = 'INSERT INTO contact(nome, telefone, email) VALUES(?,?,?)';
+    await _db.rawInsert(sql, [contact.nome, contact.telefone, contact.email]);
+  } else {
+    // Atualizar contato existente
+    var sql =
+        'UPDATE contact SET nome = ?, telefone = ?, email = ? WHERE id = ?';
+    await _db.rawUpdate(
+        sql, [contact.nome, contact.telefone, contact.email, contact.id]);
   }
+}
+
 }

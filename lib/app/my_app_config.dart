@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pi_agenda/app/view/contact_details.dart';
 import 'package:pi_agenda/app/view/contact_form.dart';
 import 'package:pi_agenda/app/view/contact_list.dart';
 
@@ -7,6 +8,7 @@ class MyApp extends StatelessWidget {
 
   static const home = '/';
   static const contactForm = 'contact_form';
+  static const contactDetails = 'contact-details';
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +21,8 @@ class MyApp extends StatelessWidget {
       )),
       routes: {
         home: (context) => ContactList(),
-        contactForm: (context) => ContactForm()
+        contactForm: (context) => ContactForm(),
+        contactDetails: (context) => ContactDetails()
       },
     );
   }

@@ -8,19 +8,23 @@ class ContactFormBack {
   late Contact contact;
   final _service = GetIt.I.get<ContactService>();
 
-  bool _nomeIsValid = false;
-  bool _telefoneIsValid = false;
-  bool _emailIsValid = false;
+  bool _nomeIsValid = true;
+  bool _telefoneIsValid = true;
+  bool _emailIsValid = true;
 
   // validação geral
   bool get isValid => _nomeIsValid && _telefoneIsValid && _emailIsValid;
 
-// construtor para diferenciar a edição e cadastramento de um contato
+// construtor para diferenciar a edição e cadastramento de um novo contato 
   ContactFormBack(BuildContext context) {
     var parametro = ModalRoute.of(context)?.settings.arguments;
-    contact = (parametro == null)
-        ? Contact(id: null, nome: '', telefone: '', email: '')
-        : parametro as Contact;
+    if (parametro == null) {
+      contact = Contact(id: null, nome: '', telefone: '', email: '');
+    } else if (parametro is Contact) {
+      contact = parametro;
+    } else {
+      throw ArgumentError('O parâmetro deve ser do tipo Contact');
+    }
   }
 
   //salvar

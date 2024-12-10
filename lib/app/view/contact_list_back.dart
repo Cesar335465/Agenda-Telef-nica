@@ -11,11 +11,6 @@ part 'contact_list_back.g.dart';
 class ContactListBack = _ContactListBack with _$ContactListBack;
 
 abstract class _ContactListBack with Store {
-  // quando o construtor for inicializada a lista será construida
-  _ContactListBack() {
-    atualizaList();
-  }
-
   final _service = GetIt.I.get<ContactService>();
 
   // Lista de contatos
@@ -24,7 +19,7 @@ abstract class _ContactListBack with Store {
 
   // Método para atualizar a lista
   @action
-  Future<void> atualizaList([dynamic valor]) async {
+  atualizaList([dynamic valor]) {
     list = _service.find();
   }
 
@@ -35,9 +30,19 @@ abstract class _ContactListBack with Store {
         .then(atualizaList);
   }
 
+  // quando o construtor for inicializada a lista será construida
+  _ContactListBack() {
+    atualizaList();
+  }
+
   // Método para excluir contato
   remove(int id) {
     _service.remove(id);
     atualizaList();
+  }
+
+  // método para ver os detalhes do contato
+  chamaDetails(BuildContext context, Contact contact) {
+    Navigator.of(context).pushNamed(MyApp.contactDetails, arguments: contact);
   }
 }

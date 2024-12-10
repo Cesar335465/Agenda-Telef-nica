@@ -27,12 +27,18 @@ mixin _$ContactListBack on _ContactListBack, Store {
     });
   }
 
-  late final _$atualizaListAsyncAction =
-      AsyncAction('_ContactListBack.atualizaList', context: context);
+  late final _$_ContactListBackActionController =
+      ActionController(name: '_ContactListBack', context: context);
 
   @override
-  Future<void> atualizaList([dynamic valor]) {
-    return _$atualizaListAsyncAction.run(() => super.atualizaList(valor));
+  dynamic atualizaList([dynamic valor]) {
+    final _$actionInfo = _$_ContactListBackActionController.startAction(
+        name: '_ContactListBack.atualizaList');
+    try {
+      return super.atualizaList(valor);
+    } finally {
+      _$_ContactListBackActionController.endAction(_$actionInfo);
+    }
   }
 
   @override

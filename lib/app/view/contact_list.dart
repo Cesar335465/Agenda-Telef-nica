@@ -53,13 +53,17 @@ class ContactList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Lista de Contatos'),
+        title: const Text(
+          'Lista de Contatos',
+          style: TextStyle(color: Colors.white),
+        ),
         actions: [
           IconButton(
               onPressed: () {
                 _back.chamaForm(context);
               },
-              icon: Icon(Icons.add))
+              icon: Icon(Icons.add),
+              color: Colors.white)
         ],
       ),
       body: Observer(
@@ -85,6 +89,9 @@ class ContactList extends StatelessWidget {
                     var contato = lista[i];
                     return ListTile(
                       title: Text(contato.nome),
+                      onTap: () {
+                        _back.chamaDetails(context, contato);
+                      },
                       subtitle: Text('${contato.telefone} - ${contato.email}'),
                       trailing: Container(
                         width: 100,

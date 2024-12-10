@@ -5,9 +5,9 @@ import 'package:pi_agenda/app/dominio/exception/domain_exception.dart';
 import 'package:pi_agenda/app/dominio/interfaces/contact_dao.dart';
 
 class ContactService {
-  var _dao = GetIt.I.get<ContactDao>();
+  final _dao = GetIt.I.get<ContactDao>();
 
-  //salver e alterar contato
+  //salver contato
   save(Contact contact) {
     validaNome(contact.nome);
     validaTelefone(contact.telefone);
